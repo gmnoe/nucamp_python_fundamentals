@@ -1,5 +1,8 @@
 from donations_pkg.homepage import *
 from donations_pkg.user import login
+from donations_pkg.user import register
+from donations_pkg.user import donate
+from donations_pkg.user import show_donations
 
 database = {"admin":"password123"}
 donations = []
@@ -15,17 +18,24 @@ while True:
     option = input("Please choose an option: ")
     if option == '1':
         username = input('Enter username: ')
-        password = input('Enter password:')
+        password = input('Enter password: ')
         authorized_user = login(database, username, password)
-    if option == '2':
-        print('TODO: Write Register Functionality\n')
-        continue
-    if option == '3':
-        print('TODO: Write Donate Functionality\n')
-        continue
-    if option == '4':
-        print('TODO: Write Show Donations Functionality\n')
-        continue
-    if option == '5':
-        print('Leaving DonateMe...\n')
+    elif option == '2':
+        username = input('Enter username: ')
+        password = input('Enter password: ')
+        authorized_user = register(database, username)
+        
+        if authorized_user != '':
+            database[username] = password 
+    elif option == '3':
+        if not authorized_user == '':
+            print("You are not logged in.")
+        else:
+            donation = donate(authorized_user)
+            donations.append(donation)
+    elif option == "4":
+        show_donations(donations)
+
+    elif option == "5":
+        print("Leaving DonateMe ...\n")
         break

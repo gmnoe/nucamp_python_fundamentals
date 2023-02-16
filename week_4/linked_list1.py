@@ -6,4 +6,3 @@ class Node:
 head = Node("1st Node")
 head.next = Node("2nd Node")
 head.next.next = Node("3rd Node")
-
